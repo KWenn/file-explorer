@@ -33,7 +33,7 @@
 	list-style:none;
 }
 
-#explorer-inner li a:hover{
+#explorer-inner ul li a:hover{
 	background-color: #4285f4;
 	color:#fff;
 }
@@ -68,18 +68,26 @@
 }
 
 /*Alignment*/
-.container{
+.container, .container0{
 	width: 90%;
 	margin:0 auto;
 	overflow:hidden;
 }
 
+.container1{
+	margin-left:70px;
+}
+
 .container2{
-	margin-left:35px;
+	margin-left:105px;
 }
 
 .container3{
-	margin-left:70px;
+	margin-left:140px;
+}
+
+.container4{
+	margin-left:175px;
 }
 
 
@@ -97,7 +105,7 @@ span.clear { clear: left; display: block; }
 
 /*ICONS*/
 
-.folder-public{
+.folder{
     width: 14px;
     height: 14px;
     background: url('../img/icon-sprite.png') -0px 0px;
@@ -105,12 +113,8 @@ span.clear { clear: left; display: block; }
     margin-right: 10px;
 }
 
-.folder-private{
-    width: 14px;
-    height: 14px;
-    background: url('../img/icon-sprite.png') -14px 0px;
-    display:inline-block;
-    margin-right: 10px;
+.private{
+    background: url('../img/icon-sprite.png') -14px 0px !important;
 }
 
 .file{
@@ -126,9 +130,10 @@ span.clear { clear: left; display: block; }
     height: 14px;
     background: url('../img/icon-sprite.png') -43px 0px;
     display:inline-block;
+    float:right;
 }
 
-.open{
+.closed{
     width: 9px;
     height: 12px;
     background: url('../img/icon-sprite.png') -58px -2px;
@@ -136,12 +141,20 @@ span.clear { clear: left; display: block; }
     margin-right: 10px;
 }
 
-.closed{
+.open{
     width: 9px;
     height: 12px;
     background: transparent url('../img/icon-sprite.png') -72px -2px;
     display:inline-block;
     margin-right: 10px;
+}
+
+.hidden{
+   display:none;
+}
+
+.closed > ul{
+   display:none;
 }
 
 .blue-btn{

@@ -1,4 +1,4 @@
-var data = [{
+var dataJSON = [{
   "children": [
     {
       "name": "Main Folder",
