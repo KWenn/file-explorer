@@ -68,25 +68,25 @@
 }
 
 /*Alignment*/
-.container, .container0{
+.container, .container1{
 	width: 90%;
 	margin:0 auto;
 	overflow:hidden;
 }
 
-.container1{
+.container2{
 	margin-left:70px;
 }
 
-.container2{
+.container3{
 	margin-left:105px;
 }
 
-.container3{
+.container4{
 	margin-left:140px;
 }
 
-.container4{
+.container5{
 	margin-left:175px;
 }
 
