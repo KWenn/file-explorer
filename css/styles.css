@@ -38,6 +38,10 @@
 	color:#fff;
 }
 
+.collapsed{
+   display:none;
+}
+
 #exhead{
 	position:relative;
 	height:52px;

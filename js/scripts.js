@@ -8,12 +8,14 @@ var isClickable = [];
 
 function toggle(){
    var e = document.getElementById(this.id);
-   
+   var c = e.parentNode;
    var eclass = e.className;
    if(eclass == "select"){
+      c.children[1].className = "collapsed";
       e.className = "selected"
    }
    if(eclass == "selected"){
+      c.children[1].className = "collapse";
       e.className = "select";
    }
 }
