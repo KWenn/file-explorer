@@ -32,9 +32,6 @@ function getData(obj){
 }
 
 function buildElements(obj) {
-   //console.log(level.length + " " + level[level.length -1]);
-   //document.getElementById('element').onclick = function(e){alert('click');}
-
    var length = 20;  
    var hasChildren = obj.hasOwnProperty('children');
    var fileName = obj.name;
@@ -89,15 +86,14 @@ function buildElements(obj) {
       i--;
    }
 
-   //check for children level and add to array- levelcounter
+   //check for children level and adds to array
    if(hasChildren){
       level.push(obj.children.length);
    }
 
-   //render element when zero array length
+   //renders root ul element
    if(level.length === 0){
       document.getElementById('list').innerHTML += markup;
-      //$('#explorer-inner > ul').append(markup);
       markup = '';
    }
    isClickable.push(count);
@@ -111,11 +107,3 @@ isClickable.forEach(function(i){
 })
 
 })()
-
-/*
-var linkText = document.createTextNode("my title text");
-a.appendChild(linkText);
-a.title = "my title text";
-a.href = "http://example.com";
-document.body.appendChild(a);
-*/

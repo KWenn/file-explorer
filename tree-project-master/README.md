@@ -9,22 +9,22 @@ You can use any tools or libraries you'd like. Except an off-the-shelf tree cont
 ## Requirements
 
 ### Application
-* You will create a new file `index.html` that renders an interactive file explorer shown in `mockup.png`
-* You will use the data from `data.json` to render the actual folders & files.
-* You may make the data in `data.json` a global variable in your scripts (ie, so that you won't need to make an AJAX request to retrieve it)
-* Provided code should be runnable by simply opening up `index.html`. No server should be needed.
-* Lay good groundwork and infrastructure for adding more advanced features. See below for more details.
+x * You will create a new file `index.html` that renders an interactive file explorer shown in `mockup.png`
+x * You will use the data from `data.json` to render the actual folders & files.
+x * You may make the data in `data.json` a global variable in your scripts (ie, so that you won't need to make an AJAX request to retrieve it)
+x * Provided code should be runnable by simply opening up `index.html`. No server should be needed.
+x * Lay good groundwork and infrastructure for adding more advanced features. See below for more details.
 
 #### Appearance
-* What you build should look like a modal but doesn't need to function like one. i.e. opening/closing and dragging it around are not necessary
-* Visually has the same colors, alignment, sizing, and shading as `mockup.png`
-* Make private folders have the red icon appearance.
+x * What you build should look like a modal but doesn't need to function like one. i.e. opening/closing and dragging it around are not necessary
+x * Visually has the same colors, alignment, sizing, and shading as `mockup.png`
+x * Make private folders have the red icon appearance.
 
 ### Minimum Features
 * Folders should be able to expand or collapse by clicking anywhere on the row (not just the icon or label itself)
-* Folders and files should have a basic selection and hover appearance (such as highlighting the row blue).
+x* Folders and files should have a basic selection and hover appearance (such as highlighting the row blue).
 * Folders and files are selected/deselected by clicking anywhere on the row.
-* Text should truncate with ellipsis if too wide
+x * Text should truncate with ellipsis if too wide
 
 ### Advanced Features (Not Required!)
 Below are advanced features you do NOT need to implement, but **need to plan for**. In later interviews,
