@@ -20,7 +20,7 @@
 	margin-top:0px;	
 }
 
-#explorer-inner ul li a{
+#explorer-inner > ul  li > div{
 	width:100%;
 	padding:9px 0;
 	color:#000;
@@ -33,11 +33,10 @@
 	list-style:none;
 }
 
-#explorer-inner ul li a:hover{
+#explorer-inner ul li div:hover, .selected{
 	background-color: #4285f4;
 	color:#fff;
 }
-
 
 #exhead{
 	position:relative;

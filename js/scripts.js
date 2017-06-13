@@ -1,87 +1,119 @@
+(function(){
+   
 var data = dataJSON[0];
-var html = "";
-var stack = [];
-var count = 1;
-var first = true;
-//console.log(data);
-populateExplorer(data);
+var level = [];
+var markup;
+var count = 0;
+var isClickable = [];
 
-function populateExplorer(obj){
+function toggle(){
+   var e = document.getElementById(this.id);
+   
+   var eclass = e.className;
+   if(eclass == "select"){
+      e.className = "selected"
+   }
+   if(eclass == "selected"){
+      e.className = "select";
+   }
+}
+
+function getData(obj){   
    for (var key in obj){
       if (typeof obj[key] == "object" && obj[key] !== null){
          if(!Array.isArray(obj[key])){
-            
-            if(obj[key].hasOwnProperty('private')){var isPrivate = "private";}else{var isPrivate = "";}
-            console.log(count + " " + obj[key].name + " " + stack);
-            //has children
-            if(obj[key].hasOwnProperty('children')){
-               stack.push( obj[key].children.length);
-               if(stack[(stack.length - 1)] > 0){
-                  stack[(stack.length - 1)] = stack[(stack.length - 1)] - 1;}
-               html+='<li>';
-               html+='<a href="#"><div class="container' + count + '">1<div class="closed"></div><div class="' + obj[key].type + " " + isPrivate + '"></div>' + obj[key].name + '</div></a>';
-               html+='<ul>';
-               count += 1;
-            }
-            
-            //no children
-            if(!obj[key].hasOwnProperty('children')){               
-               //first
-               if(first){
-                  html+='</ul></li><li>';
-                  html+='<a href="#"><div class="container' + count + '">2<div class="closed"></div><div class="' + obj[key].type + " " + isPrivate + '"></div>' + obj[key].name + '</div></a>';
-                  first = false;
-               }
-                              
-               html+='<li>';
-               html+='<a href="#"><div class="container' + count + '">3<div class="' + obj[key].type + " " + isPrivate + '"></div>' + obj[key].name + '</div></a>';
-               html+='</li>';
-               
-               if(stack[(stack.length - 1)] <= 0 ){ 
-                  html+='</ul>';
-                  stack.pop(); 
-                  count = count - 1;
-                  first = true;
-               }
-               
-               if(stack[(stack.length - 1)] > 0 ){
-                  stack[(stack.length - 1)] = stack[(stack.length - 1)] - 1;
-               }
-            }
-                                    
-            //console.log("after->", stack);
+            buildElements(obj[key]);
          }
-      populateExplorer(obj[key]);
+         getData(obj[key]);
       }
    }
 }
 
-$('#explorer-inner > ul').append(html);
+function buildElements(obj) {
+   //console.log(level.length + " " + level[level.length -1]);
+   //document.getElementById('element').onclick = function(e){alert('click');}
+
+   var length = 20;  
+   var hasChildren = obj.hasOwnProperty('children');
+   var fileName = obj.name;
+   var isPrivate = "";
    
+   if(fileName.length > 15){
+     fileName = fileName.substring(0, length) + '...';
+   }
+   
+   if(obj.private){
+      isPrivate = "private";
+   }
+   
+   //populate element
+   if(hasChildren && level.length <= 0){
+      markup += `
+      <li>
+      <div id="list${count}" class="select"><div class="container${level.length + 1}">
+         <div class="open"></div><div class="${obj.type} ${isPrivate}"></div>${fileName}</div>
+      </div>
+      <ul>
+      `;
+   }
+   if(hasChildren && level.length > 0){
+      markup += `
+      <li>
+         <div id="list${count}" class="select">
+            <div class="container${level.length + 1}"><div class="${obj.type} ${isPrivate}"></div>${fileName}</div>
+         </div>
+      </li>
+      `;
+   }
+   if(!hasChildren){
+      markup += `
+      <li>
+         <div id="list${count}" class="select"><div class="container${level.length + 1}"><div class="${obj.type} ${isPrivate}"></div>${fileName}</div></div>
+      </li>
+      
+      </ul>
+      </li>
+      `;   
+   }
+   //decrement and remove zeros
+   if(level[level.length -1] > 0){
+      level[level.length -1] = level[level.length -1] -1 ;
+   }
+   var i = level.length;
+   while(i>=0){
+      if(level[i] <= 0 && level.length > 0){
+         level.splice(i, 1);
+      }
+      i--;
+   }
+
+   //check for children level and add to array- levelcounter
+   if(hasChildren){
+      level.push(obj.children.length);
+   }
+
+   //render element when zero array length
+   if(level.length === 0){
+      document.getElementById('list').innerHTML += markup;
+      //$('#explorer-inner > ul').append(markup);
+      markup = '';
+   }
+   isClickable.push(count);
+   count++;     
+}
+
+getData(data);
+
+isClickable.forEach(function(i){
+   document.getElementById("list" + i).addEventListener("click", toggle);
+})
+
+})()
+
 /*
-   
-               if(obj[key].hasOwnProperty('private')){var isPrivate = "private";}else{var isPrivate = "";}
-
-            //root with children  // has children and 0 value on array
-            if(obj[key].hasOwnProperty('children') && stack[(stack.length - 1)] <= 1){
-               html+='<li><a href="#"><div class="container' + (stack.length -1) + '">1<div class="closed"></div><div class="' + obj[key].type + " " + isPrivate + '"></div>' + obj[key].name + '</div></a><ul>';
-            }
-            
-            //root without children  //  has no children and value == 0 and array length <= 1
-            if(!obj[key].hasOwnProperty('children') && stack[(stack.length - 1)] == 0 && stack.length <= 1){
-               html+='<li><a href="#"><div class="container' + (stack.length -1) + '">2<div class="' + obj[key].type + " " + isPrivate + '"></div> ' + obj[key].name + '</div></a></li>';
-            }
-            
-            //internal with children  // has children and value > 0 on array and stack.length > 1
-            if(obj[key].hasOwnProperty('children') && stack[(stack.length - 1)] > 0 && stack.length > 1){
-               html+='<li><a href="#"><div class="container' + (stack.length -1) + '">3<div class="closed"></div><div class="' + obj[key].type + " " + isPrivate + '"></div> ' + obj[key].name + '</div></a><ul>';
-            }
-            
-            //regular leaf // has no children and value > 0 and stack.length > 1
-            if(!obj[key].hasOwnProperty('children') && stack[(stack.length - 1)] > 0 && stack.length > 1 ){
-               html+='<li><a href="#"><div class="container' + (stack.length -1) + '">4<div class="' + obj[key].type + " " + isPrivate + '"></div>' + obj[key].name + '</div></a></li>';
-            }
-            
-
-
+var linkText = document.createTextNode("my title text");
+a.appendChild(linkText);
+a.title = "my title text";
+a.href = "http://example.com";
+document.body.appendChild(a);
 */
